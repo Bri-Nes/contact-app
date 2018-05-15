@@ -12,7 +12,7 @@ public class FileIO {
 
     public static void main(String[] args) {
         String directory = "data";
-        String filename = "groceries.txt";
+        String filename = "contacts.txt";
         Input input = new Input();
         input.yesNo();
 
