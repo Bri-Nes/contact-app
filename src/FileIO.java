@@ -15,6 +15,7 @@ public class FileIO {
         String filename = "contacts.txt";
         Input input = new Input();
         input.yesNo();
+        System.out.println(makeList());
 
         createFileIfNotExists(directory, filename);
 
@@ -72,19 +73,19 @@ public class FileIO {
         }
     }
 
-//    public static ArrayList<String> makeList() {
-//        ArrayList<String> list = new ArrayList<>();
-//        Input input = new Input();
-//        String item;
-//
-//        do {
-//            item = input.getString("Please input the item you want to add to the list.");
-//            list.add(item);
-//
-//        } while(input.yesNo("Do you want to add another item to the list? Press y or Yes to continue"));
-//
-//        return list;
-//    }
+    public static ArrayList<String> makeList() {
+        ArrayList<String> list = new ArrayList<>();
+        Input input = new Input();
+        String item;
+
+        do {
+            System.out.println("Please input the item you want to add to the list.");
+            item = input.getString();
+            list.add(item);
+
+        } while(input.yesNo("Do you want to add another item to the list? Press y or Yes to continue"));
+        return list;
+    }
 
 
 

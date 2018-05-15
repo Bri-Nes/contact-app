@@ -9,7 +9,7 @@ public class Input {
         System.out.println("Type a String: ");
         String input = scanner.next();
         System.out.println(input);
-        return null;
+        return input;
     }
 
     public boolean yesNo() {
@@ -22,6 +22,20 @@ public class Input {
         } else {
             System.out.println("Oops, I'm not sure what you mean by that.. try again!");
             yesNo();
+        }
+        return val;
+    }
+
+    public boolean yesNo(String message) {
+        System.out.println(message);
+        String input = scanner.next();
+        if (input.equalsIgnoreCase("y") || input.equalsIgnoreCase("yes")) {
+            val = true;
+        } else if (input.equalsIgnoreCase("n") || input.equalsIgnoreCase("no")) {
+            val = false;
+        } else {
+            System.out.println("Oops, I'm not sure what you mean by that.. try again!");
+            yesNo(message);
         }
         return val;
     }
