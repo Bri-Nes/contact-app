@@ -6,7 +6,7 @@ public class Input {
     boolean val;
 
     public String getString() {
-        System.out.println("Type a String: ");
+//        System.out.println("Type a String: ");
         String input = scanner.next();
         System.out.println(input);
         return input;

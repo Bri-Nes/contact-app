@@ -134,13 +134,16 @@ public class FileIO extends Contact{
         ArrayList<String> list = new ArrayList<>();
         Input input = new Input();
         String item;
+        String name;
 
         do {
-            System.out.println("Please input new contact you want to add to the list.");
+            System.out.println("Enter a contact name: ");
             item = input.getString();
-            list.add(item);
+            System.out.println(("Enter a contact phone number: "));
+            name = input.getString();
+            list.add(item + "   |   " + name);
 
-        } while(input.yesNo("Do you want to add another contact to the list? Press y or Yes to continue"));
+        } while(input.yesNo("Do you want to add another contact to the list? [yes/no]: "));
         return list;
     }
 
