@@ -15,12 +15,24 @@ public class FileIO {
     private static boolean exitApp = false;
 
     public static void main(String[] args) {
-        System.out.println(makeList());
+//        System.out.println(makeList());
         createFileIfNotExists(directory, filename);
+//
+        ArrayList<String> items = makeList();
+        System.out.println(items);
 
-        do {
-            selection(menu());
-        } while (!exitApp);
+        try {
+            writeListToFile(items, directory, filename);
+            do {
+                selection(menu());
+            } while (!exitApp);
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+
+
+
 
     }
 
@@ -65,14 +77,7 @@ public class FileIO {
     }
 
 
-//        ArrayList<String> items = makeList();
-//        System.out.println(items);
 //
-//        try {
-//            writeListToFile(items, directory, filename);
-//        } catch(IOException e) {
-//            System.out.println(e.getMessage());
-//        }
 //        try {
 //            readLines(directory, filename);
 //        } catch(IOException e) {
