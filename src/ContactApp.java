@@ -16,9 +16,7 @@ public class ContactApp {
 
     public static void main(String[] args) {
         createFileIfNotExists(directory, filename);
-        ArrayList<String> items = makeList();
         try {
-            writeListToFile(items, directory, filename);
             do {
                 selection(menu());
             } while (!exitApp);
@@ -38,17 +36,22 @@ public class ContactApp {
         return input.getInt(1, 5);
     }
 
-    public static void add() {
+    public static ArrayList<String> add() throws IOException {
         String firstname;
         String lastname;
         String phonenumber;
         String email;
-
-        firstname = input.getString("Type the full name of the contact you'd like to add :");
-        lastname = input.getString("Type the last name of the contact: ");
-        phonenumber = input.getString("Type the phone number of the contact: ");
-        email = input.getString("And finally, the email: ");
-        Contact contact = new Contact(firstname,lastname,phonenumber,email);
+        ArrayList<String> list = new ArrayList<>();
+        do {
+            firstname = input.getString("Type the first name of the contact you'd like to add: ");
+            lastname = input.getString("Type the last name of the contact: ");
+            phonenumber = input.getString("Type the phone number of the contact: ");
+            email = input.getString("And finally, the email: ");
+            Contact contact = new Contact(firstname,lastname,phonenumber,email);
+            list.add(contact.firstName + "   |   " + contact.lastName + "   |   " + contact.phoneNumber + "   |   " + contact.email);
+        } while(input.yesNo("Do you want to add another contact to the list? [yes/no]: "));
+        writeListToFile(list, directory, filename);
+        return list;
     }
 
     private static void selection(int selected) throws IOException {
@@ -70,7 +73,7 @@ public class ContactApp {
                 break;
             case 5:
                 System.out.println("You choose to leave me.");
-//                exit();
+                exitApp = true;
                 break;
         }
     }
@@ -103,18 +106,4 @@ public class ContactApp {
         }
     }
 
-    public static ArrayList<String> makeList() {
-        ArrayList<String> list = new ArrayList<>();
-        Input input = new Input();
-        String item;
-        String name;
-        do {
-            System.out.println("Enter a contact name: ");
-            item = input.getString();
-            System.out.println(("Enter a contact phone number: "));
-            name = input.getString();
-            list.add(item + "   |   " + name);
-        } while(input.yesNo("Do you want to add another contact to the list? [yes/no]: "));
-        return list;
-    }
 }
