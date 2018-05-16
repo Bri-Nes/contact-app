@@ -12,6 +12,11 @@ public class Input {
         return input;
     }
 
+    public String getString(String message) {
+        System.out.println(message);
+        return scanner.next();
+    }
+
     public boolean yesNo() {
         System.out.println("Yes or No: ");
         String input = scanner.next();

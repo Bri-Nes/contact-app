@@ -1,14 +1,23 @@
-public abstract class Contact {
+import util.Input;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
+public class Contact {
     protected String firstName;
     protected String lastName;
     protected String fullName;
     protected String phoneNumber;
     protected String email;
 
-    public Contact(String firstName, String lastName, String fullName, String phoneNumber, String email) {
+    public Contact(String firstName, String lastName, String phoneNumber, String email) {
         this.firstName = firstName;
         this.lastName = lastName;
-        this.fullName = fullName;
         this.phoneNumber = phoneNumber;
         this.email = email;
     }
@@ -56,4 +65,6 @@ public abstract class Contact {
     public String toString(){
         return this.firstName + " | " + this.lastName + " | " + this.phoneNumber + " | " + " | " + this.email;
     }
+
+
 }
