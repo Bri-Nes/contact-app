@@ -25,10 +25,11 @@ public class ContactApp {
         }
     }
 
+
     private static int menu() {
         System.out.println("Welcome to our fancy contact list! ");
         System.out.print(
-                "1. View contacts.\n" +
+                        "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
                         "3. Search a contact by name.\n" +
                         "4. Delete an existing contact.\n" +
@@ -60,16 +61,16 @@ public class ContactApp {
                 readLines("data", "contacts.txt");
                 break;
             case 2:
-                System.out.println("You choose add.");
+//                System.out.println("You choose add.");
                 add();
                 break;
             case 3:
-                System.out.println("You choose search.");
-//                search();
+//                System.out.println("You choose search.");
+                searchByName(input.getString("Search contact: "));
                 break;
             case 4:
                 System.out.println("You choose delete.");
-//                delete();
+                delete(input.getString("delete contact: "));
                 break;
             case 5:
                 System.out.println("You choose to leave me.");
@@ -105,5 +106,36 @@ public class ContactApp {
             System.out.println(item);
         }
     }
+
+    public static void searchByName(String name) throws IOException {
+        Path filePath = Paths.get(directory, filename);
+        List<String> list = Files.readAllLines(filePath);
+        for(String item : list) {
+            if(item.toLowerCase().contains(name.toLowerCase())) {
+                System.out.println(item);
+                }
+        }
+    }
+
+    public  static void delete(String name) throws IOException {
+        Path filePath = Paths.get(directory, filename);
+        List<String> list = Files.readAllLines(filePath);
+        for(String item : list) {
+            if(item.toLowerCase().contains(name.toLowerCase())) {
+                list.remove(item);
+            }
+        }
+
+    }
+//        public static void searchByTitle() {
+//            System.out.println("| Search by title: ");
+////        input.getString();
+//            String search = input.getString();
+//            for(Movie movie : movieArray) {
+//                if(movie.getName().toLowerCase().contains(search.toLowerCase())) {
+//                    displayMovie(movie);
+//                }
+//            }
+//        }
 
 }
