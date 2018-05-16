@@ -6,20 +6,27 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class FileIO {
+public class FileIO extends Contact{
     private static String directory = "data";
     private static String filename = "contacts.txt";
     private static Input input = new Input();
     private static boolean exitApp = false;
 
-    public static void main(String[] args) {
-//        System.out.println(makeList());
+    public FileIO(String firstName, String lastName, String fullName, String phoneNumber, String email) {
+        super(firstName, lastName, fullName, phoneNumber, email);
+    }
+
+    public static void main(String[] args){
+        System.out.println("Welcome to our fancy contact list! ");
+
         createFileIfNotExists(directory, filename);
-//
         ArrayList<String> items = makeList();
-        System.out.println(items);
+//        System.out.println(items);
+
+
 
         try {
             writeListToFile(items, directory, filename);
@@ -48,12 +55,11 @@ public class FileIO {
 
     }
 
-    private static void selection(int selected) {
+    private static void selection(int selected) throws IOException {
 
         switch (selected) {
             case 1:
-                System.out.println("You choose view.");
-//                view(contacts.list());
+                readLines("data", "contacts.txt");
                 break;
             case 2:
                 System.out.println("You choose add.");
@@ -130,11 +136,11 @@ public class FileIO {
         String item;
 
         do {
-            System.out.println("Please input the item you want to add to the list.");
+            System.out.println("Please input new contact you want to add to the list.");
             item = input.getString();
             list.add(item);
 
-        } while(input.yesNo("Do you want to add another item to the list? Press y or Yes to continue"));
+        } while(input.yesNo("Do you want to add another contact to the list? Press y or Yes to continue"));
         return list;
     }
 

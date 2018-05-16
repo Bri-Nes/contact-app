@@ -1,4 +1,4 @@
-public class Contact {
+public abstract class Contact {
     protected String firstName;
     protected String lastName;
     protected String fullName;
