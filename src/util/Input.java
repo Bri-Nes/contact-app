@@ -46,26 +46,35 @@ public class Input {
     }
 
     public int getInt(int min, int max) {
-        System.out.println("Type a number between "+min+" and "+max+": ");
-        int input = scanner.nextInt();
-        if (input > max) {
-            System.out.println("Try again... remember the numbers to choose from are "+min+" and "+max);
-            getInt(min, max);
-        } else if (input < min) {
-            System.out.println("Try again... remember the numbers to choose from are "+min+" and "+max);
-            getInt(min, max);
-        } else {
-            System.out.println(input);
-            return input;
+        System.out.println("Type a number between " + min + " and " + max + ": ");
+        try {
+            String input = scanner.nextLine();
+            int inputval = Integer.valueOf(input);
+            if (inputval > max) {
+                System.out.println("Try again... remember the numbers to choose from are " + min + " and " + max);
+                getInt(min, max);
+            } else if (inputval < min) {
+                System.out.println("Try again... remember the numbers to choose from are " + min + " and " + max);
+                getInt(min, max);
+            } else {
+                System.out.println(inputval);
+                return inputval;
+            }
+            return inputval;
+        } catch (Exception e) {
+            System.out.println("That must not have been a number, try again!");
+            return getInt(min, max);
         }
-        return input;
     }
 
     public int getInt() {
-        System.out.println("Type an integer: ");
-        int input = scanner.nextInt();
-        System.out.println(input);
-        return input;
+        try {
+            String inputInt  = this.scanner.nextLine();
+            return Integer.valueOf(inputInt);
+        } catch(NumberFormatException e) {
+            System.out.println("Try again. Fail. ");
+            return getInt();
+        }
     }
 
     public double getDouble(double min, double max) {

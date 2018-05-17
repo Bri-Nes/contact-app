@@ -36,6 +36,7 @@ public class ContactApp{
 
     public static void main(String[] args) {
         createFileIfNotExists(directory, filename);
+        System.out.println("Welcome to our fancy contact list! ");
         try {
             do {
                 selection(menu());
@@ -47,7 +48,6 @@ public class ContactApp{
 
 
     private static int menu() {
-        System.out.println("Welcome to our fancy contact list! ");
         System.out.print(
                         "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
@@ -87,10 +87,10 @@ public class ContactApp{
                 searchByName(directory,filename,input.getString("Search contact: "));
                 break;
             case 4:
-                delete(directory,filename,input.getString("What to delete? "));
+                delete(directory,filename,input.getString("Type the name of the contact you'd like to delete: "));
                 break;
             case 5:
-                System.out.println("You choose to leave me.");
+                System.out.println("Goodbye!");
                 exitApp = true;
                 break;
         }
@@ -127,15 +127,11 @@ public class ContactApp{
         for(String contact : list) {
             if(contact.toLowerCase().contains(name)) {
                 System.out.println(contact);
-//                return true;
             }
-
         }
-//        return false;
     }
 
     public  static void delete( String directory, String filename, String name) throws IOException {
-
         Path filePath = Paths.get(directory, filename);
         List<String> list = Files.readAllLines(filePath);
         for(String item : list) {
@@ -144,18 +140,13 @@ public class ContactApp{
                 boolean choice = input.yesNo("Would you like to delete this? ");
                 if (choice) {
                     itemID = list.indexOf(item);
+                    System.out.println("Deleted!");
                 } else {
                     break;
                 }
             }
         }
-
         list.remove(itemID);
         writeListToFile(list,directory,filename);
-        System.out.println();
-
     }
-
-
-
 }
