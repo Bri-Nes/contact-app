@@ -1,6 +1,8 @@
-import util.Input;
+package contacts;
 
+import util.Input;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -8,11 +10,29 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactApp {
+public class ContactApp{
     private static String directory = "data";
     private static String filename = "contacts.txt";
     private static Input input = new Input();
     private static boolean exitApp = false;
+    private static int itemID;
+
+
+
+    public static void createFileIfNotExists(String directory, String filename) {
+        Path dataDirectory = Paths.get(directory);
+        Path dataFile = Paths.get(directory, filename);
+        try {
+            if (Files.notExists(dataDirectory)) {
+                Files.createDirectories(dataDirectory);
+            }
+            if (Files.notExists(dataFile)) {
+                Files.createFile(dataFile);
+            }
+        } catch(IOException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
         createFileIfNotExists(directory, filename);
@@ -49,7 +69,7 @@ public class ContactApp {
             phonenumber = input.getString("Type the phone number of the contact: ");
             email = input.getString("And finally, the email: ");
             Contact contact = new Contact(firstname,lastname,phonenumber,email);
-            list.add(contact.firstName + "   |   " + contact.lastName + "   |   " + contact.phoneNumber + "   |   " + contact.email);
+            list.add(contact.firstName  + " " +contact.lastName + "   |   " + contact.phoneNumber + "   |   " + contact.email);
         } while(input.yesNo("Do you want to add another contact to the list? [yes/no]: "));
         writeListToFile(list, directory, filename);
         return list;
@@ -61,16 +81,13 @@ public class ContactApp {
                 readLines("data", "contacts.txt");
                 break;
             case 2:
-//                System.out.println("You choose add.");
                 add();
                 break;
             case 3:
-//                System.out.println("You choose search.");
-                searchByName(input.getString("Search contact: "));
+                searchByName(directory,filename,input.getString("Search contact: "));
                 break;
             case 4:
-                System.out.println("You choose delete.");
-                delete(input.getString("delete contact: "));
+                delete(directory,filename,input.getString("What to delete? "));
                 break;
             case 5:
                 System.out.println("You choose to leave me.");
@@ -79,24 +96,18 @@ public class ContactApp {
         }
     }
 
-    public static void createFileIfNotExists(String directory, String filename) {
-        Path dataDirectory = Paths.get(directory);
-        Path dataFile = Paths.get(directory, filename);
-        try {
-            if (Files.notExists(dataDirectory)) {
-                Files.createDirectories(dataDirectory);
-            }
-            if (Files.notExists(dataFile)) {
-                Files.createFile(dataFile);
-            }
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
-    }
+
 
     public static void writeListToFile(ArrayList<String> list, String directory, String filename) throws IOException {
         Path filepath = Paths.get(directory, filename);
         Files.write(filepath, list, StandardOpenOption.APPEND);
+    }
+    public static void writeListToFile(List<String> list, String directory, String filename) throws IOException {
+        Path filepath = Paths.get(directory, filename);
+        Files.write(filepath, list);
+
+
+
     }
 
     public static void readLines(String directory, String filename) throws IOException {
@@ -107,35 +118,44 @@ public class ContactApp {
         }
     }
 
-    public static void searchByName(String name) throws IOException {
+    public static void searchByName(String directory, String filename, String name) throws IOException {
+        name = name.toLowerCase();
         Path filePath = Paths.get(directory, filename);
         List<String> list = Files.readAllLines(filePath);
-        for(String item : list) {
-            if(item.toLowerCase().contains(name.toLowerCase())) {
-                System.out.println(item);
-                }
+
+
+        for(String contact : list) {
+            if(contact.toLowerCase().contains(name)) {
+                System.out.println(contact);
+//                return true;
+            }
+
         }
+//        return false;
     }
 
-    public  static void delete(String name) throws IOException {
+    public  static void delete( String directory, String filename, String name) throws IOException {
+
         Path filePath = Paths.get(directory, filename);
         List<String> list = Files.readAllLines(filePath);
         for(String item : list) {
-            if(item.toLowerCase().contains(name.toLowerCase())) {
-                list.remove(item);
+            if(item.contains(name)) {
+                System.out.println(item);
+                boolean choice = input.yesNo("Would you like to delete this? ");
+                if (choice) {
+                    itemID = list.indexOf(item);
+                } else {
+                    break;
+                }
             }
         }
 
+        list.remove(itemID);
+        writeListToFile(list,directory,filename);
+        System.out.println();
+
     }
-//        public static void searchByTitle() {
-//            System.out.println("| Search by title: ");
-////        input.getString();
-//            String search = input.getString();
-//            for(Movie movie : movieArray) {
-//                if(movie.getName().toLowerCase().contains(search.toLowerCase())) {
-//                    displayMovie(movie);
-//                }
-//            }
-//        }
+
+
 
 }
