@@ -2,7 +2,6 @@ package contacts;
 
 import util.Input;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -10,7 +9,7 @@ import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ContactApp{
+public class ContactApp {
     private static String directory = "data";
     private static String filename = "contacts.txt";
     private static Input input = new Input();
@@ -36,7 +35,7 @@ public class ContactApp{
 
     public static void main(String[] args) {
         createFileIfNotExists(directory, filename);
-        System.out.println("Welcome to our fancy contact list! ");
+        System.out.println("Welcome to our contact application! ");
         try {
             do {
                 selection(menu());
@@ -87,7 +86,8 @@ public class ContactApp{
                 searchByName(directory,filename,input.getString("Search contact: "));
                 break;
             case 4:
-                delete(directory,filename,input.getString("Type the name of the contact you'd like to delete: "));
+                String choice = input.getString("Type the name of the contact you'd like to delete: ");
+                delete(directory,filename, choice);
                 break;
             case 5:
                 System.out.println("Goodbye!");
@@ -96,12 +96,11 @@ public class ContactApp{
         }
     }
 
-
-
     public static void writeListToFile(ArrayList<String> list, String directory, String filename) throws IOException {
         Path filepath = Paths.get(directory, filename);
         Files.write(filepath, list, StandardOpenOption.APPEND);
     }
+
     public static void writeListToFile(List<String> list, String directory, String filename) throws IOException {
         Path filepath = Paths.get(directory, filename);
         Files.write(filepath, list);
@@ -131,7 +130,7 @@ public class ContactApp{
         }
     }
 
-    public  static void delete( String directory, String filename, String name) throws IOException {
+    public  static void delete(String directory, String filename, String name) throws IOException {
         Path filePath = Paths.get(directory, filename);
         List<String> list = Files.readAllLines(filePath);
         for(String item : list) {
