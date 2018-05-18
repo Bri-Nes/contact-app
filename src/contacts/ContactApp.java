@@ -33,20 +33,16 @@ public class ContactApp {
         }
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         createFileIfNotExists(directory, filename);
         System.out.println("Welcome to our contact application! ");
-        try {
             do {
-                selection(menu());
+                mainMenu(options());
             } while (!exitApp);
-        } catch(IOException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
 
-    private static int menu() {
+    private static int options() {
         System.out.print(
                         "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
@@ -56,7 +52,7 @@ public class ContactApp {
         return input.getInt(1, 5);
     }
 
-    public static ArrayList<String> add() throws IOException {
+    public static void add() throws IOException {
         String firstname;
         String lastname;
         String phonenumber;
@@ -71,11 +67,10 @@ public class ContactApp {
             list.add(contact.firstName  + " " +contact.lastName + "   |   " + contact.phoneNumber + "   |   " + contact.email);
         } while(input.yesNo("Do you want to add another contact to the list? [yes/no]: "));
         writeListToFile(list, directory, filename);
-        return list;
     }
 
-    private static void selection(int selected) throws IOException {
-        switch (selected) {
+    private static void mainMenu(int userChoice) throws IOException {
+        switch (userChoice) {
             case 1:
                 readLines("data", "contacts.txt");
                 break;
@@ -121,7 +116,6 @@ public class ContactApp {
         name = name.toLowerCase();
         Path filePath = Paths.get(directory, filename);
         List<String> list = Files.readAllLines(filePath);
-
 
         for(String contact : list) {
             if(contact.toLowerCase().contains(name)) {

@@ -48,7 +48,7 @@ public class Input {
     public int getInt(int min, int max) {
         System.out.println("Type a number between " + min + " and " + max + ": ");
         try {
-            String input = scanner.nextLine();
+            String input = scanner.next();
             int inputval = Integer.valueOf(input);
             if (inputval > max) {
                 System.out.println("Try again... remember the numbers to choose from are " + min + " and " + max);
@@ -62,6 +62,7 @@ public class Input {
             }
             return inputval;
         } catch (Exception e) {
+            System.out.println(e.toString());
             System.out.println("That must not have been a number, try again!");
             return getInt(min, max);
         }
