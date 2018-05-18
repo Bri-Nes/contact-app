@@ -46,7 +46,7 @@ public class Input {
     }
 
     public int getInt(int min, int max) {
-        System.out.println("Type a number between " + min + " and " + max + ": ");
+        System.out.println("Pick between " + min + " and " + max + ": ");
         try {
             String input = scanner.next();
             int inputval = Integer.valueOf(input);

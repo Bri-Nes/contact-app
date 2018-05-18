@@ -1,0 +1,8 @@
+     Name    |      Phone       |   Email
+John Locke   |   231-432-4567   |   john@email.com
+Nestor Salinas   |   210-567-2345   |   nestor@email.com
+Brian Tule   |   540-345-3453   |   Brian@email.com
+Nestor Salinas   |   324-543-2342   |   Salinas@email.com
+Lorem Ipsom   |   1800-help   |   Lorem@ipsom.com
+Nestor Salinas   |   234-234-2344   |   dude@gmail.com
+Nestor Salinas   |   234-234-2342   |   nuhd@jkasdj.com

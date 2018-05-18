@@ -32,17 +32,30 @@ public class ContactApp {
             System.out.println(e.getMessage());
         }
     }
+    public static void writeListToFile(ArrayList<String> list, String directory, String filename) throws IOException {
+        Path filepath = Paths.get(directory, filename);
+        Files.write(filepath, list, StandardOpenOption.APPEND);
+    }
 
-    public static void main(String[] args) throws IOException {
-        createFileIfNotExists(directory, filename);
-        System.out.println("Welcome to our contact application! ");
-            do {
-                mainMenu(options());
-            } while (!exitApp);
+    public static void writeListToFile(List<String> list, String directory, String filename) throws IOException {
+        Path filepath = Paths.get(directory, filename);
+        Files.write(filepath, list);
+
+
+
+    }
+
+    public static void readLines(String directory, String filename) throws IOException {
+        Path filePath = Paths.get(directory, filename);
+        List<String> list = Files.readAllLines(filePath);
+        for(String item : list) {
+            System.out.println(item);
+        }
     }
 
 
     private static int options() {
+
         System.out.print(
                         "1. View contacts.\n" +
                         "2. Add a new contact.\n" +
@@ -91,26 +104,7 @@ public class ContactApp {
         }
     }
 
-    public static void writeListToFile(ArrayList<String> list, String directory, String filename) throws IOException {
-        Path filepath = Paths.get(directory, filename);
-        Files.write(filepath, list, StandardOpenOption.APPEND);
-    }
 
-    public static void writeListToFile(List<String> list, String directory, String filename) throws IOException {
-        Path filepath = Paths.get(directory, filename);
-        Files.write(filepath, list);
-
-
-
-    }
-
-    public static void readLines(String directory, String filename) throws IOException {
-        Path filePath = Paths.get(directory, filename);
-        List<String> list = Files.readAllLines(filePath);
-        for(String item : list) {
-            System.out.println(item);
-        }
-    }
 
     public static void searchByName(String directory, String filename, String name) throws IOException {
         name = name.toLowerCase();
@@ -133,13 +127,23 @@ public class ContactApp {
                 boolean choice = input.yesNo("Would you like to delete this? ");
                 if (choice) {
                     itemID = list.indexOf(item);
-                    System.out.println("Deleted!");
-                } else {
-                    break;
+
                 }
             }
         }
+        System.out.println("Deleted!");
         list.remove(itemID);
+
         writeListToFile(list,directory,filename);
+    }
+
+    public static void main(String[] args) throws IOException {
+        createFileIfNotExists(directory, filename);
+        System.out.println("====================================");
+        System.out.println("Welcome to our contact application! ");
+        System.out.println("====================================");
+        do {
+            mainMenu(options());
+        } while (!exitApp);
     }
 }
